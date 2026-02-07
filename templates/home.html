@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinterWear | الرئيسية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Cairo', sans-serif;
+background: #0a0a0a;
+color: #fff;
+line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+position: relative;
+padding: 120px 30px 80px;
+background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+text-align: center;
+border-bottom: 1px solid rgba(199, 161, 74, 0.15);
+}
+
+.hero::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: 
+radial-gradient(circle at 20% 30%, rgba(199, 161, 74, 0.08), transparent 50%),
+radial-gradient(circle at 80% 70%, rgba(199, 161, 74, 0.05), transparent 50%);
+}
+
+.hero-content {
+position: relative;
+z-index: 2;
+max-width: 700px;
+margin: 0 auto;
+}
+
+.hero-badge {
+display: inline-block;
+background: rgba(199, 161, 74, 0.15);
+border: 1px solid rgba(199, 161, 74, 0.4);
+color: #c7a14a;
+padding: 8px 20px;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 2px;
+text-transform: uppercase;
+margin-bottom: 25px;
+}
+
+.hero h1 {
+font-size: 52px;
+font-weight: 900;
+margin-bottom: 20px;
+color: #fff;
+line-height: 1.2;
+}
+
+.hero h1 span {
+background: linear-gradient(135deg, #c7a14a, #fff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.hero p {
+font-size: 18px;
+color: #9ca3af;
+margin-bottom: 35px;
+line-height: 1.7;
+}
+
+.hero-btn {
+display: inline-block;
+background: linear-gradient(135deg, #c7a14a, #d4af37);
+color: #000;
+padding: 15px 40px;
+font-size: 15px;
+font-weight: 700;
+text-decoration: none;
+letter-spacing: 1px;
+transition: all 0.3s ease;
+box-shadow: 0 10px 30px rgba(199, 161, 74, 0.2);
+}
+
+.hero-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 15px 40px rgba(199, 161, 74, 0.4);
+}
+
+/* Products Section */
+.products {
+padding: 80px 30px;
+background: #000;
+max-width: 1400px;
+margin: 0 auto;
+}
+
+.products-header {
+text-align: center;
+margin-bottom: 60px;
+}
+
+.products-header h2 {
+font-size: 38px;
+font-weight: 900;
+color: #fff;
+margin-bottom: 12px;
+}
+
+.products-header p {
+font-size: 15px;
+color: #6b7280;
+}
+
+.products-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 30px;
+}
+
+/* Product Card */
+.product {
+background: #0f0f0f;
+border: 1px solid #1a1a1a;
+overflow: hidden;
+transition: all 0.4s ease;
+position: relative;
+display: flex;
+flex-direction: column;
+}
+
+.product:hover {
+border-color: rgba(199, 161, 74, 0.4);
+transform: translateY(-8px);
+box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Product Image */
+.product-image {
+position: relative;
+height: 320px;
+background: linear-gradient(135deg, #1a1a1a, #141414);
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+border-bottom: 1px solid #1a1a1a;
+}
+
+.product-image::after {
+content: '';
+position: absolute;
+inset: 0;
+background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.4) 100%);
+}
+
+.product-image img,
+.product-icon {
+font-size: 120px;
+transition: transform 0.4s ease;
+z-index: 1;
+filter: drop-shadow(0 10px 25px rgba(199, 161, 74, 0.15));
+}
+
+.product:hover .product-icon {
+transform: scale(1.08);
+}
+
+/* Product Badge */
+.product-badge {
+position: absolute;
+top: 15px;
+left: 15px;
+background: #c7a14a;
+color: #000;
+padding: 6px 14px;
+font-size: 11px;
+font-weight: 900;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+z-index: 10;
+box-shadow: 0 4px 15px rgba(199, 161, 74, 0.3);
+}
+
+.product-badge.new {
+background: #10b981;
+}
+
+.product-badge.featured {
+background: #6366f1;
+}
+
+/* Wishlist Icon */
+.wishlist-btn {
+position: absolute;
+top: 15px;
+right: 15px;
+width: 40px;
+height: 40px;
+background: rgba(0, 0, 0, 0.5);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 18px;
+cursor: pointer;
+transition: all 0.3s ease;
+z-index: 10;
+}
+
+.wishlist-btn:hover {
+background: #c7a14a;
+border-color: #c7a14a;
+transform: scale(1.1);
+}
+
+/* Product Info */
+.product-info {
+padding: 25px;
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+
+.product-category {
+font-size: 11px;
+color: #c7a14a;
+text-transform: uppercase;
+letter-spacing: 2px;
+margin-bottom: 8px;
+font-weight: 700;
+}
+
+.product h3 {
+font-size: 22px;
+color: #fff;
+margin-bottom: 12px;
+font-weight: 700;
+line-height: 1.3;
+}
+
+.product-description {
+font-size: 13px;
+color: #6b7280;
+margin-bottom: 15px;
+line-height: 1.6;
+}
+
+/* Rating */
+.product-rating {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 15px;
+}
+
+.stars {
+color: #fbbf24;
+font-size: 14px;
+letter-spacing: 2px;
+}
+
+.rating-count {
+font-size: 12px;
+color: #6b7280;
+}
+
+/* Price & Action */
+.product-footer {
+margin-top: auto;
+padding-top: 15px;
+border-top: 1px solid #1a1a1a;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 15px;
+}
+
+.product-price {
+display: flex;
+flex-direction: column;
+}
+
+.current-price {
+font-size: 28px;
+color: #c7a14a;
+font-weight: 900;
+line-height: 1;
+}
+
+.original-price {
+font-size: 14px;
+color: #6b7280;
+text-decoration: line-through;
+margin-top: 4px;
+}
+
+.tax-note {
+font-size: 11px;
+color: #4b5563;
+margin-top: 4px;
+}
+
+/* Add to Cart Button */
+.add-to-cart {
+background: linear-gradient(135deg, #1a1a1a, #252525);
+border: 1px solid #333;
+color: #fff;
+padding: 12px 24px;
+font-size: 13px;
+font-weight: 700;
+cursor: pointer;
+transition: all 0.3s ease;
+white-space: nowrap;
+letter-spacing: 0.5px;
+}
+
+.add-to-cart:hover {
+background: linear-gradient(135deg, #c7a14a, #d4af37);
+color: #000;
+border-color: #c7a14a;
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(199, 161, 74, 0.3);
+}
+
+/* Quick View */
+.quick-view {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+background: rgba(0, 0, 0, 0.9);
+backdrop-filter: blur(10px);
+color: #fff;
+padding: 12px;
+text-align: center;
+font-size: 13px;
+font-weight: 700;
+opacity: 0;
+transform: translateY(100%);
+transition: all 0.3s ease;
+cursor: pointer;
+border-top: 1px solid rgba(199, 161, 74, 0.3);
+}
+
+.product:hover .quick-view {
+opacity: 1;
+transform: translateY(0);
+}
+
+.quick-view:hover {
+background: rgba(199, 161, 74, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+.products-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media (max-width: 768px) {
+.hero {
+padding: 80px 20px 60px;
+}
+
+.hero h1 {
+font-size: 36px;
+}
+
+.hero p {
+font-size: 16px;
+}
+
+.products {
+padding: 60px 20px;
+}
+
+.products-header h2 {
+font-size: 28px;
+}
+
+.products-grid {
+grid-template-columns: 1fr;
+gap: 25px;
+}
+
+.product-image {
+height: 280px;
+}
+
+.product-icon {
+font-size: 100px;
+}
+
+.product h3 {
+font-size: 20px;
+}
+
+.current-price {
+font-size: 24px;
+}
+
+.product-footer {
+flex-direction: column;
+align-items: stretch;
+}
+
+.add-to-cart {
+width: 100%;
+padding: 14px;
+}
+}
+
+html {
+scroll-behavior: smooth;
+}
+</style>
+</head>
+<body>
+
+{% include "header.html" %}
+
+<section class="hero">
+<div class="hero-content">
+<div class="hero-badge">✨ مجموعة شتاء 2026</div>
+<h1>
+<span>دفء الشتاء</span>
+يبدأ من هنا
+</h1>
+<p>أحدث البلوفرات بتصاميم أنيقة وجودة عالية تمنحك الراحة والأناقة طوال الموسم</p>
+<a href="#products" class="hero-btn">تسوق الآن</a>
+</div>
+</section>
+
+<section class="products" id="products">
+<div class="products-header">
+<h2>المنتجات المميزة</h2>
+<p>اختر من مجموعتنا الحصرية من الملابس الشتوية</p>
+</div>
+
+<div class="products-grid">
+<!-- Product 1 -->
+<div class="product">
+<div class="product-image">
+<span class="product-badge">الأكثر مبيعاً</span>
+<button class="wishlist-btn">♡</button>
+<div class="product-icon"></div>
+<div class="quick-view">👁️ معاينة سريعة</div>
+</div>
+<div class="product-info">
+<div class="product-category">Winter Collection</div>
+<h3>بلوفر شتوي كلاسيكي</h3>
+<p class="product-description">بلوفر شتوي فاخر من أجود أنواع القطن، مصمم ليمنحك الدفء والراحة</p>
+<div class="product-rating">
+<span class="stars">★★★★★</span>
+<span class="rating-count">(127 تقييم)</span>
+</div>
+<div class="product-footer">
+<div class="product-price">
+<div class="current-price">199 ر.س</div>
+<div class="tax-note">شامل الضريبة</div>
+</div>
+<button class="add-to-cart">🛒 أضف للسلة</button>
+</div>
+</div>
+</div>
+
+<!-- Product 2 -->
+<div class="product">
+<div class="product-image">
+<span class="product-badge new">جديد</span>
+<button class="wishlist-btn">♡</button>
+<div class="product-icon"></div>
+<div class="quick-view">👁️ معاينة سريعة</div>
+</div>
+<div class="product-info">
+<div class="product-category">Men's Collection</div>
+<h3>هودي رجالي عصري</h3>
+<p class="product-description">هودي رجالي بتصميم عصري وخامات عالية الجودة تدوم طويلاً</p>
+<div class="product-rating">
+<span class="stars">★★★★☆</span>
+<span class="rating-count">(89 تقييم)</span>
+</div>
+<div class="product-footer">
+<div class="product-price">
+<div class="current-price">249 ر.س</div>
+<div class="original-price">299 ر.س</div>
+</div>
+<button class="add-to-cart">🛒 أضف للسلة</button>
+</div>
+</div>
+</div>
+
+<!-- Product 3 -->
+<div class="product">
+<div class="product-image">
+<span class="product-badge featured">مميز</span>
+<button class="wishlist-btn">♡</button>
+<div class="product-icon"></div>
+<div class="quick-view">👁️ معاينة سريعة</div>
+</div>
+<div class="product-info">
+<div class="product-category">Women's Collection</div>
+<h3>بلوفر نسائي أنيق</h3>
+<p class="product-description">بلوفر نسائي بتصميم أنيق يناسب جميع المناسبات مع راحة استثنائية</p>
+<div class="product-rating">
+<span class="stars">★★★★★</span>
+<span class="rating-count">(156 تقييم)</span>
+</div>
+<div class="product-footer">
+<div class="product-price">
+<div class="current-price">219 ر.س</div>
+<div class="tax-note">شامل الضريبة</div>
+</div>
+<button class="add-to-cart">🛒 أضف للسلة</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+{% include "footer.html" %}
+
+</body>
+</html>
