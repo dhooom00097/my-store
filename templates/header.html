@@ -30,7 +30,6 @@
             background: linear-gradient(135deg, #c7a14a 0%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             letter-spacing: 2px;
             position: relative;
         }
@@ -39,16 +38,15 @@
             content: '';
             position: absolute;
             bottom: -5px;
-            left: 0;
+            right: 0;
             width: 40px;
             height: 3px;
             background: #c7a14a;
-            box-shadow: 0 0 10px rgba(199, 161, 74, 0.5);
         }
 
         nav {
             display: flex;
-            gap: 35px;
+            gap: 30px;
         }
 
         nav a {
@@ -56,82 +54,90 @@
             text-decoration: none;
             font-size: 15px;
             font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: #c7a14a;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
+            transition: 0.3s;
         }
 
         nav a:hover {
             color: #c7a14a;
         }
 
-        nav a:hover::after {
-            width: 100%;
+        /* ====== Auth Buttons ====== */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .auth-buttons a {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .login-btn {
+            color: #c7a14a;
+            border: 2px solid #c7a14a;
+            background: transparent;
+        }
+
+        .login-btn:hover {
+            background: #c7a14a;
+            color: #000;
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, #c7a14a, #d4af37);
+            color: #000;
+            border: none;
+        }
+
+        .register-btn:hover {
+            box-shadow: 0 8px 20px rgba(199,161,74,.4);
+            transform: translateY(-2px);
+        }
+
+        .username {
+            color: #c7a14a;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* Cart Button */
+        .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
 
         .actions button {
             background: linear-gradient(135deg, #c7a14a 0%, #d4af37 100%);
             border: none;
-            padding: 12px 28px;
+            padding: 10px 22px;
             color: #000;
             font-weight: 700;
-            font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .actions button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.5s, height 0.5s;
-        }
-
-        .actions button:hover::before {
-            width: 300px;
-            height: 300px;
+            transition: 0.3s;
         }
 
         .actions button:hover {
-            transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(199, 161, 74, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* Mobile Menu */
+        /* Mobile */
         .mobile-toggle {
             display: none;
             flex-direction: column;
             gap: 5px;
-            cursor: pointer;
         }
 
         .mobile-toggle span {
             width: 25px;
             height: 3px;
             background: #c7a14a;
-            transition: all 0.3s;
         }
 
         @media (max-width: 768px) {
@@ -147,13 +153,8 @@
                 display: flex;
             }
 
-            .logo {
-                font-size: 24px;
-            }
-
-            .actions button {
-                padding: 10px 20px;
-                font-size: 13px;
+            .auth-buttons {
+                display: none;
             }
         }
     </style>
@@ -172,6 +173,19 @@
     </nav>
 
     <div class="actions">
+
+        {% if user.is_authenticated %}
+            <div class="auth-buttons">
+                <span class="username">أهلاً {{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-btn">تسجيل خروج</a>
+            </div>
+        {% else %}
+            <div class="auth-buttons">
+                <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
+                <a href="{% url 'register' %}" class="register-btn">إنشاء حساب</a>
+            </div>
+        {% endif %}
+
         <button>سلة الشراء</button>
     </div>
 
