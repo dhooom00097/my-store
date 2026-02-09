@@ -1,0 +1,54 @@
+<section class="products" id="products">
+    <div class="products-header">
+        <h2>المنتجات المميزة</h2>
+        <p>اختر من مجموعتنا الحصرية من الملابس الشتوية</p>
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product">
+
+            <div class="product-image">
+                {% if product.is_active %}
+                    <span class="product-badge">متوفر</span>
+                {% endif %}
+                <button class="wishlist-btn">♡</button>
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <div class="product-icon">🧥</div>
+                {% endif %}
+
+                <div class="quick-view">👁️ معاينة سريعة</div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-category">
+                    {{ product.category.name }}
+                </div>
+
+                <h3>{{ product.name }}</h3>
+
+                <p class="product-description">
+                    {{ product.description|default:"وصف المنتج غير متوفر حالياً" }}
+                </p>
+
+                <div class="product-footer">
+                    <div class="product-price">
+                        <div class="current-price">
+                            {{ product.price }} ر.س
+                        </div>
+                        <div class="tax-note">شامل الضريبة</div>
+                    </div>
+
+                    <button class="add-to-cart">🛒 أضف للسلة</button>
+                </div>
+            </div>
+
+        </div>
+        {% empty %}
+            <p>لا توجد منتجات حالياً</p>
+        {% endfor %}
+    </div>
+</section>

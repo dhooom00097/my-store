@@ -61,7 +61,6 @@
             color: #c7a14a;
         }
 
-        /* ====== Auth Buttons ====== */
         .auth-buttons {
             display: flex;
             gap: 10px;
@@ -105,29 +104,29 @@
             font-size: 14px;
         }
 
-        /* Cart Button */
         .actions {
             display: flex;
             gap: 12px;
             align-items: center;
         }
 
-        .actions button {
+        .cart-btn {
             background: linear-gradient(135deg, #c7a14a 0%, #d4af37 100%);
             border: none;
-            padding: 10px 22px;
+            padding: 10px 18px;
             color: #000;
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
+            border-radius: 6px;
+            text-decoration: none;
         }
 
-        .actions button:hover {
+        .cart-btn:hover {
             box-shadow: 0 10px 25px rgba(199, 161, 74, 0.4);
             transform: translateY(-2px);
         }
 
-        /* Mobile */
         .mobile-toggle {
             display: none;
             flex-direction: column;
@@ -166,10 +165,10 @@
 
     <nav>
         <a href="/">الرئيسية</a>
-        <a href="#">البلوفرات</a>
-        <a href="#">الرجالية</a>
-        <a href="#">النسائية</a>
-        <a href="#">تواصل معنا</a>
+        <a href="/">البلوفرات</a>
+        <a href="/">الرجالية</a>
+        <a href="/">النسائية</a>
+        <a href="/">تواصل معنا</a>
     </nav>
 
     <div class="actions">
@@ -179,6 +178,12 @@
                 <span class="username">أهلاً {{ user.username }}</span>
                 <a href="{% url 'logout' %}" class="login-btn">تسجيل خروج</a>
             </div>
+
+            <!-- زر السلة -->
+            <a href="{% url 'cart_detail' %}" class="cart-btn">
+                🛒 سلة الشراء
+            </a>
+
         {% else %}
             <div class="auth-buttons">
                 <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
@@ -186,7 +191,6 @@
             </div>
         {% endif %}
 
-        <button>سلة الشراء</button>
     </div>
 
     <div class="mobile-toggle">
