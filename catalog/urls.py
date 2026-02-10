@@ -1,10 +1,12 @@
 from django.urls import path
 from . import views
-from .views import catalog_view
+
 urlpatterns = [
     path('', views.home, name='home'),
-    path('catalog/', catalog_view, name='catalog'),
+    path('catalog/', views.catalog_view, name='catalog'),
+
+    # سلة المشتريات
+    path('cart/', views.cart_view, name='cart'),
+    path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
 ]
-
-
-

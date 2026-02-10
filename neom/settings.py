@@ -1,4 +1,9 @@
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+# تحميل متغيرات البيئة
+load_dotenv()
 
 # ======================================
 # المسارات الأساسية
@@ -9,23 +14,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================================
 # إعدادات الأمان
 # ======================================
-SECRET_KEY = 'django-insecure-change-this-key'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',')
 
 
 # ======================================
 # التطبيقات
 # ======================================
 INSTALLED_APPS = [
+    # Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 
     # تطبيقات المشروع
     'accounts',
@@ -35,7 +45,7 @@ INSTALLED_APPS = [
 
 
 # ======================================
-# الميدل وير
+# Middleware
 # ======================================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,13 +59,13 @@ MIDDLEWARE = [
 
 
 # ======================================
-# روابط المشروع
+# URLs
 # ======================================
 ROOT_URLCONF = 'neom.urls'
 
 
 # ======================================
-# القوالب (Templates)
+# Templates
 # ======================================
 TEMPLATES = [
     {
@@ -76,7 +86,6 @@ TEMPLATES = [
 ]
 
 
-
 # ======================================
 # WSGI
 # ======================================
@@ -84,42 +93,50 @@ WSGI_APPLICATION = 'neom.wsgi.application'
 
 
 # ======================================
-# قاعدة البيانات
+# Database
 # ======================================
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    # ===== Development (SQLite) =====
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # ===== Production (PostgreSQL - Render Internal) =====
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('DB_ENGINE'),
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
+            'CONN_MAX_AGE': 600,
+            'OPTIONS': {
+                'sslmode': 'require',
+            }
+        }
+    }
 
 
 # ======================================
-# التحقق من كلمات المرور
+# Password Validation
 # ======================================
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 
 # ======================================
-# اللغة والتوقيت
+# Language & Time
 # ======================================
 LANGUAGE_CODE = 'ar'
-
 TIME_ZONE = 'Asia/Riyadh'
-
 USE_I18N = True
 USE_TZ = True
 
@@ -137,19 +154,24 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # ======================================
-# Media Files
+# Cloudinary
 # ======================================
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # ======================================
-# المستخدم المخصص (مهم جدًا)
+# Custom User
 # ======================================
 AUTH_USER_MODEL = 'accounts.User'
 
 
 # ======================================
-# الإعدادات الافتراضية
+# Defaults
 # ======================================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

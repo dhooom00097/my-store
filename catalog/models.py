@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class Category(models.Model):
@@ -34,12 +35,15 @@ class Product(models.Model):
         max_length=255,
         verbose_name="اسم المنتج"
     )
-    image = models.ImageField(
-        upload_to='products/',
+
+    # ✅ ربط الصورة مع Cloudinary (الصحيح)
+    image = CloudinaryField(
+        folder='products',
         blank=True,
         null=True,
         verbose_name="صورة المنتج"
     )
+
     description = models.TextField(
         blank=True,
         verbose_name="الوصف"
